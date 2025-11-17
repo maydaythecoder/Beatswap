@@ -13,7 +13,7 @@ A PyTorch-based deep learning model for separating audio into voice and beat com
 
 ## Project Structure
 
-```
+``` txt
 Beatswap/
 ├── models/              # Model components
 │   ├── encoder.py      # AudioEncoder module
@@ -31,18 +31,21 @@ Beatswap/
 
 ## Installation
 
-1. **Clone or navigate to the project directory:**
+1 **Clone or navigate to the project directory:**
+
 ```bash
 cd Beatswap
 ```
 
-2. **Create a virtual environment (recommended):**
+2 **Create a virtual environment (recommended):**
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. **Install dependencies:**
+3 **Install dependencies:**
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -52,6 +55,7 @@ pip install -r requirements.txt
 ### 1. Setup (Optional)
 
 Create necessary directories:
+
 ```bash
 python quick_start.py --mode setup
 ```
@@ -62,7 +66,8 @@ This creates: `checkpoints/`, `outputs/`, `train_audio/`, `val_audio/`
 
 If you have a single audio file for training:
 
-**Option A: Using quick_start.py (Recommended)**
+Option A: Using quick_start.py (Recommended)
+
 ```bash
 # Place your audio file in a directory
 mkdir audio_files
@@ -72,7 +77,8 @@ mkdir audio_files
 python quick_start.py --mode train --audio-dir ./audio_files --epochs 50 --batch-size 1
 ```
 
-**Option B: Using train.py directly**
+Option B: Using train.py directly
+
 ```bash
 python train.py --train-dir ./audio_files --num-epochs 50 --batch-size 1
 ```
@@ -87,11 +93,13 @@ The model will use this single file for training. For better results, you'll wan
    - Optionally create a validation directory: `val_audio/`
 
 2. **Start training:**
+
 ```bash
 python train.py --train-dir ./train_audio --val-dir ./val_audio
 ```
 
 **Training options:**
+
 - `--train-dir`: Directory containing training audio files (required)
 - `--val-dir`: Directory containing validation audio files (optional)
 - `--batch-size`: Batch size (default: 8)
@@ -102,6 +110,7 @@ python train.py --train-dir ./train_audio --val-dir ./val_audio
 - `--save-every`: Save checkpoint every N epochs (default: 10)
 
 **Example:**
+
 ```bash
 python train.py \
     --train-dir ./train_audio \
@@ -126,6 +135,7 @@ python inference.py \
 ```
 
 **Inference options:**
+
 - `--input-audio`: Path to input audio file (required)
 - `--checkpoint`: Path to model checkpoint (optional, but recommended)
 - `--output-dir`: Output directory (default: `outputs/`)
@@ -133,6 +143,7 @@ python inference.py \
 - `--denormalize`: Denormalize output audio (default: True)
 
 **Example:**
+
 ```bash
 python inference.py \
     --input-audio my_song.wav \
@@ -141,6 +152,7 @@ python inference.py \
 ```
 
 This will create two files in the output directory:
+
 - `my_song_voice.wav` - Isolated voice track
 - `my_song_beat.wav` - Isolated beat track
 
@@ -181,6 +193,7 @@ AUDIO_CONFIG = {
 ## Model Architecture
 
 The BeatSwap model consists of:
+
 - **AudioEncoder**: Processes input audio into a latent representation using 1D convolutions
 - **VoiceDecoder**: Reconstructs voice component from latent representation
 - **BeatDecoder**: Reconstructs beat component from latent representation
@@ -189,7 +202,7 @@ Both decoders share the same encoder output, allowing the model to learn separat
 
 ## Training Tips
 
-1. **Data Preparation**: 
+1. **Data Preparation**:
    - Use high-quality audio files (preferably WAV format)
    - Ensure consistent sample rates (model uses 22050 Hz by default)
    - More training data generally leads to better results
@@ -210,15 +223,18 @@ Both decoders share the same encoder output, allowing the model to learn separat
 
 ## Troubleshooting
 
-**Issue: "No audio files found"**
+Issue: "No audio files found"
+
 - Make sure audio files are in the specified directory
 - Check that file extensions are supported (.wav, .mp3, .flac, .m4a, .ogg)
 
-**Issue: CUDA out of memory**
+Issue: CUDA out of memory
+
 - Reduce batch size (`--batch-size 1` or `--batch-size 2`)
 - Reduce `num_samples` in `config.py` if using fixed-length audio
 
-**Issue: Poor separation quality**
+Issue: Poor separation quality
+
 - Train for more epochs
 - Use more diverse training data
 - Adjust learning rate if loss is not decreasing
@@ -230,4 +246,3 @@ Both decoders share the same encoder output, allowing the model to learn separat
 ## Contributing
 
 [Add contributing guidelines here]
-
